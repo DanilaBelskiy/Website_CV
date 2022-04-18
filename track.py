@@ -92,7 +92,7 @@ def detect(opt):
         dataset = LoadStreams(source, img_size=imgsz, stride=stride, auto=pt)
         nr_sources = len(dataset)
     else:
-        show_vid = check_imshow()
+        #show_vid = check_imshow()
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt)
         nr_sources = 1
     vid_path, vid_writer, txt_path = [None] * nr_sources, [None] * nr_sources, [None] * nr_sources
