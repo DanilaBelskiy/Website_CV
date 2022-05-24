@@ -92,7 +92,7 @@ def detect(opt):
         dataset = LoadStreams(source, img_size=imgsz, stride=stride, auto=pt)
         nr_sources = len(dataset)
     else:
-        #show_vid = check_imshow()
+        show_vid = check_imshow()
         dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=pt)
         nr_sources = 1
     vid_path, vid_writer, txt_path = [None] * nr_sources, [None] * nr_sources, [None] * nr_sources
@@ -213,7 +213,8 @@ def detect(opt):
                             if save_crop:
                                 txt_file_name = txt_file_name if (isinstance(path, list) and len(path) > 1) else ''
                                 save_one_box(bboxes, imc, file=save_dir / 'crops' / txt_file_name / names[c] / f'{id}' / f'{p.stem}.jpg', BGR=True)
-
+                if 'you_can_start_stream.txt' not in os.listdir('for_server'):
+                    os.system('touch for_server/you_can_start_stream.txt')
                 LOGGER.info(f'{s}Done. YOLO:({t3 - t2:.3f}s), DeepSort:({t5 - t4:.3f}s)')
 
             else:
@@ -223,7 +224,8 @@ def detect(opt):
             # Stream results
             im0 = annotator.result()
             if show_vid:
-                cv2.imshow(str(p), im0)
+                im0 = cv2.resize(im0, [640, 480])
+                cv2.imshow('result', im0)
                 cv2.waitKey(1)  # 1 millisecond
 
             # Save results (image with detections)
