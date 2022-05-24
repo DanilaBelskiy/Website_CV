@@ -12,3 +12,7 @@ runs/
 yolov5/
 
 delete_me.py
+
+**/for_server/segment_*
+for_server/you_can_start_stream.txt
+for_server/playlist.m3u8

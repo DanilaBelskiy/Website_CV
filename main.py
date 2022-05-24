@@ -24,7 +24,6 @@ os.system("gnome-terminal --command 'python track.py --yolo_model weights/best_f
 os.chdir('for_server')
 os.system("gnome-terminal --command 'python3 -m http.server 8080'")
 
-
 # Gstreamer start
 while 'you_can_start_stream.txt' not in os.listdir():
     time.sleep(5)
