@@ -1,11 +1,32 @@
 import psycopg2
+import time
 
 print('hello world before')
 
-conn = psycopg2.connect(dbname="stage", user="postgres", password="secret", host="db", port="5432")
-cursor = conn.cursor()
+while True:
+    try:
+        conn = psycopg2.connect(dbname="yolo_db", user="postgres", password="123", host="db", port="5432")
+        cursor = conn.cursor()
+        print('Connected to database')
+        break
+    except:
+        time.sleep(1)
+        continue
 
-cursor.execute("INSERT into test (first_name, second_name) VALUES ('Ivan', 'Ivanov');")
-conn.commit()
+try:
+    cursor.execute("CREATE SCHEMA main;")
+    print('Created schema')
+except:
+    print('Schema already exist')
+    pass
+
+try:
+    cursor.execute("CREATE TABLE main.info (id SERIAl NOT NULL, number TEXT, fight_fall TEXT, time_ent TEXT,"
+                   "time_out TEXT, average_accuracy TEXT);")
+    print('Created table main.info')
+    conn.commit()
+except:
+    print('Table already exist')
+    pass
 
 print('hello world after')

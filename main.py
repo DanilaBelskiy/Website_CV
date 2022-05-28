@@ -1,14 +1,6 @@
 import os
 import time
 
-# Old script
-'''
-from find_last_run import find_last_run
-last_run = find_last_run()
-os.system(f'cp -f runs/track/weights/{last_run}/fight_small.mp4 static/')
-os.system('flask run --port=6060')
-'''
-
 # Preparing
 os.chdir('for_server')
 directory = os.listdir()
@@ -22,11 +14,11 @@ os.system("gnome-terminal --command 'python track.py --yolo_model weights/best_f
 
 # Server start
 os.chdir('for_server')
-os.system("gnome-terminal --command 'python3 -m http.server 8080'")
+os.system("gnome-terminal --command 'python3 -m http.server 9000'")
 
 # Gstreamer start
 while 'you_can_start_stream.txt' not in os.listdir():
     time.sleep(5)
 os.system("gst-launch-1.0 ximagesrc use-damage=0 xname='result' ! videoconvert ! clockoverlay ! videoscale method=0 "
           "! video/x-raw,width=1280, height=720 ! x264enc bitrate=2048 ! video/x-h264,profile=\"high\" ! mpegtsmux "
-          "! hlssink playlist-root=http://localhost:8080 location=segment_%05d.ts target-duration=5 max-files=5")
+          "! hlssink playlist-root=http://localhost:9000 location=segment_%05d.ts target-duration=5 max-files=5")
