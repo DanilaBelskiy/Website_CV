@@ -8,14 +8,10 @@
 
 #RUN pip install -r requirements.txt
 
-#FROM baza
+#RUN apt-get update
 
-#RUN apt update
+#RUN apt-get install ffmpeg libsm6 libxext6  -y
 
-#RUN apt install --assume-yes gnome-terminal
+FROM baza
 
-#CMD ["python", "delete_me.py"]
-
-FROM 66001a317bb6
-
-CMD ["python", "main.py"]
+CMD ['python', 'main.py', 'docker']
