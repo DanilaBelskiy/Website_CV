@@ -42,8 +42,18 @@ if str(ROOT) not in sys.path:
     sys.path.append(str(ROOT))  # add ROOT to PATH
 ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
+if sys.argv[1] == '--docker':
+    while True:
+        try:
+            conn = psycopg2.connect(dbname="yolo_db", user="postgres", password="123", host="db", port="5432")
+            break
+        except:
+            time.sleep(1)
+            continue
+else:
+    conn = psycopg2.connect(database="yolo_db", user="postgres", password="123", host="localhost", port="5432")
+
 ###
-conn = psycopg2.connect(database="yolo_db", user="postgres", password="123", host="localhost", port="5432")
 cursor = conn.cursor()
 
 all_id = []
@@ -306,6 +316,7 @@ if __name__ == '__main__':
     parser.add_argument('--project', default=ROOT / 'runs/track', help='save results to project/name')
     parser.add_argument('--name', default='exp', help='save results to project/name')
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
+    parser.add_argument('--docker', action='store_true', help='docker or user call')
     opt = parser.parse_args()
     opt.imgsz *= 2 if len(opt.imgsz) == 1 else 1  # expand
 

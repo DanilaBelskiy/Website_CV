@@ -2,6 +2,13 @@ import os
 import time
 import multiprocessing
 import subprocess
+import sys
+
+call_type = 'User'
+
+if len(sys.argv) > 1:
+    if sys.argv[1].lower() == 'docker':
+        call_type = 'Docker'
 
 
 def server():
@@ -10,7 +17,10 @@ def server():
 
 
 def tracking():
-    subprocess.run('python track.py --yolo_model weights/best_final.pt --source videos/fight_small.mp4', shell=True)
+    if call_type == 'User':
+        subprocess.run('python track.py --yolo_model weights/best_final.pt --source videos/fight_small.mp4', shell=True)
+    elif call_type == 'Docker':
+        subprocess.run('python track.py --docker --yolo_model weights/best_final.pt --source videos/fight_small.mp4', shell=True)
 
 
 def g_streamer():
