@@ -6,6 +6,10 @@ volumes:
 services:
   app_db:
     build: .
+    environment:
+      - DISPLAY=:0.0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
     ports:
       - 9000:9000
 

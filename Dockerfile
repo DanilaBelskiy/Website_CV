@@ -1,21 +1,33 @@
-#FROM python:3.8
+FROM python:3.8
 
-#RUN mkdir /app/
+RUN mkdir /app/
 
-#WORKDIR /app/
+WORKDIR /app/
 
-#COPY . .
+COPY . .
 
-#RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt
+
+RUN apt-get update
+
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 
 #FROM baza
 
-#RUN apt update
+RUN apt-get install gstreamer1.0-tools -y
 
-#RUN apt install --assume-yes gnome-terminal
+#FROM baza_gs
 
-#CMD ["python", "delete_me.py"]
+RUN apt-get install -y gstreamer1.0-plugins-good -y
 
-FROM 66001a317bb6
+#FROM baza_gs_1
 
-CMD ["python", "main.py"]
+RUN apt-get install -y gstreamer1.0-plugins-ugly
+
+#FROM baza_gs_2
+
+RUN apt install -y gstreamer1.0-plugins-bad
+
+#FROM baza_gs_3
+
+CMD ["python", "main.py", "docker"]
