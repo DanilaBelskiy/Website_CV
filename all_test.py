@@ -25,9 +25,10 @@ def test_server_404():
 
 
 def test_tracking():
-    result = subprocess.run('python track.py --source videos/test.mp4 --yolo_model weights/best.pt', shell=True,
+    result = subprocess.run('python track.py --source videos/test.mp4 --yolo_model weights/best_final.pt', shell=True,
                             stdout=subprocess.PIPE, encoding='utf-8')
     assert result.returncode == 0
+
 
 def test_insert_1():
     inf = {'name1': 'fight', 'accuracy1': 13.397889999999999, 'time1': 16, 'time_ent_1': '10:57:08',
@@ -75,8 +76,7 @@ def test_insert_4():
     assert add_to_db(inf, all_id)[8] == ['13', 'fight', '10:58:33', '10:58:39', '0.75']
 
 
-def test_insert_4():
-    add = []
+def test_insert_5():
     inf = {'name1': 'fight', 'accuracy1': 13.397889999999999, 'time1': 16, 'time_ent_1': '10:57:08',
            'time_out_1': '10:57:19', 'name2': 'fight', 'accuracy2': 74.86325999999995, 'time2': 91,
            'time_ent_2': '10:57:08', 'time_out_2': '10:58:02', 'name3': 'fight', 'accuracy3': 1.45782, 'time3': 2,
@@ -91,5 +91,3 @@ def test_insert_4():
            'time15': 3, 'time_ent_15': '10:58:44', 'time_out_15': '10:58:45'}
     all_id = [1, 2, 3, 4, 7, 9, 11, 12, 13, 15]
     assert add_to_db(inf, all_id)[9] == ['15', 'fight', '10:58:44', '10:58:45', '0.72']
-
-
