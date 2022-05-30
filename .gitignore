@@ -9,8 +9,6 @@ inference/
 MOT16_eval/
 runs/
 
-yolov5/
-
 delete_me.py
 
 **/for_server/segment_*

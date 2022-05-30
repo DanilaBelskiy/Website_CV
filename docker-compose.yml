@@ -7,7 +7,7 @@ services:
   app_db:
     build: .
     environment:
-      - DISPLAY=:0.0
+      - DISPLAY=:0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
     ports:
